@@ -31,7 +31,7 @@ public class CityServiceImpl implements CityService {
     }
     @Override
     public CityDto getCityById(int cityId) {
-       City city = cityRepository.findById(cityId).orElseThrow(()->  new CityNotFoundException("City Not Found with Id"+cityId));
+       City city = cityRepository.findById(cityId).orElseThrow(()->  new CityNotFoundException("City Not Found with Id: "+cityId));
        CityDto cityDto = new CityDto();
             cityDto.setCityId(city.getCityId());
             cityDto.setCityName(city.getCityName());
@@ -49,7 +49,7 @@ public class CityServiceImpl implements CityService {
     @Override
     public void deleteById(int cityId) {
         if(!cityRepository.existsById(cityId)){
-            throw new CityNotFoundException("City Not Found with Id"+cityId);
+            throw new CityNotFoundException("City Not Found with Id: "+cityId);
         }
         cityRepository.deleteById(cityId);
     }
