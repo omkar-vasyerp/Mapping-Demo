@@ -21,14 +21,18 @@ public class State {
     private int stateId;
     @Column(name="state_name")
     private String stateName;
+    
+    
     @ManyToOne
     @JoinColumn(name="country_id",referencedColumnName="country_id")
     private Country country;
-    public State(int stateId, String stateName, Country country) {
+    public State(int stateId, String stateName) {
         this.stateId = stateId;
         this.stateName = stateName;
-        this.country = country;
+       
     }
+    
+
     
 
 }

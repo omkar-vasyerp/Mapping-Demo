@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Country {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="country_id")
-    private int countryId;
-    @Column(name="country_name")
-    private String countryName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "country_id")
+	private int countryId;
+	@Column(name = "country_name")
+	private String countryName;
 
-    public Country(int countryId, String countryName) {
-        this.countryId = countryId;
-        this.countryName = countryName;
-    }
-    
+	public Country(int countryId, String countryName) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+	}
+
 }

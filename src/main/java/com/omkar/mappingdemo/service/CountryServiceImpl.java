@@ -7,18 +7,24 @@ import org.springframework.stereotype.Service;
 
 import com.omkar.mappingdemo.dto.CountryDto;
 import com.omkar.mappingdemo.exception.CountryNotFoundException;
+import com.omkar.mappingdemo.model.City;
 import com.omkar.mappingdemo.model.Country;
+import com.omkar.mappingdemo.model.State;
+import com.omkar.mappingdemo.repository.CityRepository;
 import com.omkar.mappingdemo.repository.CountryRepository;
+import com.omkar.mappingdemo.repository.StateRepository;
 
 @Service
 public class CountryServiceImpl implements CountryService{
 
     private  CountryRepository countryRepository;
-    public CountryServiceImpl(CountryRepository countryRepository){
+    private StateRepository stateRepository;
+    private CityRepository cityRepository;
+    public CountryServiceImpl(CountryRepository countryRepository,StateRepository stateRepository,CityRepository cityRepository){
         this.countryRepository=countryRepository;
-
-        
-    }
+        this.stateRepository=stateRepository;
+        this.cityRepository =cityRepository;
+        }
     @Override
     public List<CountryDto> getAllCountries() {
         List<Country> countries = countryRepository.findAll();
@@ -51,6 +57,12 @@ public class CountryServiceImpl implements CountryService{
        if (!countryRepository.existsById(countryId)) {
         throw new CountryNotFoundException("Country Not Found With Id: "+countryId);
        }
+       List<State> states= stateRepository.findStatesByCountryId(countryId);
+       for (State state : states) {
+		List<City> cities = cityRepository.findCitiesByStateId(state.getStateId());
+		cityRepository.deleteAll(cities);
+	}
+       
        countryRepository.deleteById(countryId);
     }
     

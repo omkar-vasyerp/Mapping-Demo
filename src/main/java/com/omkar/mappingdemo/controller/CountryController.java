@@ -37,8 +37,12 @@ public class CountryController {
 
     @DeleteMapping("/country/{countryId}")
     public ResponseDto deleteCountryById(@PathVariable  int countryId){
-        countryService.deleteById(countryId);
-        return new ResponseDto(200, "SUCCESS", "DELETE SUCCESSFULL");
+    	 try {
+             countryService.deleteById(countryId);
+             return new ResponseDto(200, "SUCCESS", "DELETE SUCCESSFUL");
+         } catch (Exception e) {
+             return new ResponseDto(500, "ERROR", "Failed to delete Country: " + e.getMessage());
+         }
     }
     
     @PostMapping("/country")

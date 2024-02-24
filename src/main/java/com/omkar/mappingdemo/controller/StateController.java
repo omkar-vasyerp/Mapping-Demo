@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omkar.mappingdemo.dto.ResponseDto;
 import com.omkar.mappingdemo.dto.StateDto;
-import com.omkar.mappingdemo.model.Country;
 import com.omkar.mappingdemo.service.StateService;
 
 @RestController
@@ -37,14 +36,17 @@ public class StateController {
 
     @PostMapping("/state")
     public ResponseDto addState(@RequestBody StateDto stateDto,@PathVariable int countryId ){
-        stateDto.setCountry(new Country(countryId, "null"));
-        stateService.addstate(stateDto);
+        stateService.addstate(stateDto,countryId);
         return new ResponseDto(200, "SUCCESS", "ADD SUCCESSFULL");
     }
     
     @DeleteMapping("/state/{stateId}")
     public ResponseDto deleteStateById(@PathVariable int stateId){
-        stateService.deleteById(stateId);
-        return new ResponseDto(200, "SUCCESS", "DELETE SUCCESSFULL");
+        try {
+            stateService.deleteById(stateId);
+            return new ResponseDto(200, "SUCCESS", "DELETE SUCCESSFUL");
+        } catch (Exception e) {
+            return new ResponseDto(500, "ERROR", "Failed to delete state: " + e.getMessage());
+        }
     }
 }

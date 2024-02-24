@@ -21,5 +21,4 @@ public class City {
     @ManyToOne
     @JoinColumn(name="state_id",referencedColumnName = "state_id")
     private State state;
-   
 }

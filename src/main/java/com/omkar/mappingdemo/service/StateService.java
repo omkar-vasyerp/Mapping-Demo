@@ -8,6 +8,6 @@ public interface StateService{
     // List<StateDto> getAllStates();
     List<StateDto> getAllStatesByCountry(int countryId);
     StateDto getStateById(int stateId);
-    void addstate(StateDto stateDto);
+    void addstate(StateDto stateDto,int countryId);
     void deleteById(int stateId);
 }
